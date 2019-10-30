@@ -68,6 +68,15 @@ void cLoadScene::Init()
 
 	//Button
 	Load("TestButton", "./Image/TestButton.png");
+
+	//Title
+	Load("TitleBackGround", "./Image/Title/BackGround/TitleBackGround.png");
+	Load("CreditsButton", "./Image/Title/Button/CreditsButton.png");
+	Load("ExitButton", "./Image/Title/Button/ExitButton.png");
+	Load("OptionButton", "./Image/Title/Button/OptionButton.png");
+	Load("StartButton", "./Image/Title/Button/StartButton.png");
+	Load("MakeMapButton", "./Image/Title/Button/MakeMapButton.png");
+
 	m_MaxSoundLoad = m_SoundLoad.size();
 	m_MaxLoad = m_Load.size();
 }

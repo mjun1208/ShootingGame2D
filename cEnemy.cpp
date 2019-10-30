@@ -49,16 +49,6 @@ void cEnemy::Release()
 
 void cEnemy::Movement(Vec2 Target, cMap * map)
 {
-	//
-	//DEBUG_LOG(map->GetMatrix(Target).x << " " << map->GetMatrix(Target).y);
-	//IsMove = true;
-	//if (INPUT->KeyDown('X')) {
-	//	if (!IsMove)
-	//		IsMove = true;
-	//	else
-	//		IsMove = false;
-	//}
-
 	if (map->FindPath(map->GetMatrix(m_vPos), map->GetMatrix(Target)).size() > 0) {
 		IsMove = true;
 	}

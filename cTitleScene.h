@@ -4,6 +4,13 @@ class cTitleScene : public cScene
 {
 private:
 	cButton * m_TestButton;
+	cTexture* m_BackGround;
+	cButton * m_StartButton;
+	cButton * m_CreditsButton;
+	cButton * m_ExitButton;
+	cButton * m_OptionButton;
+	cButton * m_MakeMap;
+
 public:
 	cTitleScene();
 	virtual ~cTitleScene();

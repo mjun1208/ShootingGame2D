@@ -262,9 +262,9 @@ vector<Vec2> cMap::SavePath(vector<Node*>& ClosePath, Vec2 MyMatrix, Vec2 Target
 {
 	vector<Vec2> ClosePathVec;
 	vector<Vec2> FinalPathVec;
-	//vector<Vec2> AddPathVec;
+
 	Vec2 PathVec2[8];
-	//
+	
 	bool IsStartPath = true;
 
 	Vec2 NowVec2;
@@ -280,9 +280,6 @@ vector<Vec2> cMap::SavePath(vector<Node*>& ClosePath, Vec2 MyMatrix, Vec2 Target
 		}
 	}
 	reverse(ClosePathVec.begin(), ClosePathVec.end());
-
-	//for (auto iter : ClosePathVec)
-	//	DEBUG_LOG("cls" << iter.x << " " << iter.y);
 	
 
 	for (auto iter : ClosePath)
