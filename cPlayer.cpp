@@ -18,7 +18,11 @@ cPlayer::~cPlayer()
 
 void cPlayer::Init()
 {
-	m_Image = IMAGE->FindImage("Player");
+	m_IdleImage[BOTTOM] = IMAGE->FindImage("Player_Idle_Front");
+	m_IdleImage[TOP] = IMAGE->FindImage("Player_Idle_Back");
+	m_IdleImage[LEFT] = IMAGE->FindImage("Player_Idle_Left");
+	m_IdleImage[RIGHT] = IMAGE->FindImage("Player_Idle_Right");
+
 	m_MoveImage[BOTTOM] = IMAGE->FindImage("Player_Move_Front");
 	m_MoveImage[TOP] = IMAGE->FindImage("Player_Move_Back");
 	m_MoveImage[LEFT] = IMAGE->FindImage("Player_Move_Left");
@@ -36,6 +40,9 @@ void cPlayer::Init()
 	b_Attack = false;
 	b_EndAttackFrame = false;
 
+	m_IdleFrame = new cFrame();
+	m_IdleFrame->SetFrame(0, 2, 150);
+
 	m_MoveFrame_3 = new cFrame();
 	m_MoveFrame_3->SetFrame(0, 3, 50);
 
@@ -44,12 +51,16 @@ void cPlayer::Init()
 
 	m_AttackFrame = new cFrame();
 	m_AttackFrame->SetFrame(0, 3, 50);
+
+	DirState = BOTTOM;
 }
 
 void cPlayer::Update(cMap * map)
 {
 	Movement();
 	CheckColl(map);
+	
+	m_IdleFrame->Frame();
 
 	if (m_vDir.x != 0 || m_vDir.y != 0)
 		b_Move = true;
@@ -95,11 +106,12 @@ void cPlayer::Render()
 			IMAGE->Render(m_MoveImage[DirState]->FindImage(m_MoveFrame_5->NowFrame), m_vPos, 0, true);
 	}
 	else
-		IMAGE->Render(m_Image, m_vPos, 0, true);
+		IMAGE->Render(m_IdleImage[DirState]->FindImage(m_IdleFrame->NowFrame), m_vPos, 0, true);
 }
 
 void cPlayer::Release()
 {
+	SAFE_DELETE(m_IdleFrame);
 	SAFE_DELETE(m_MoveFrame_3);
 	SAFE_DELETE(m_MoveFrame_5);
 	SAFE_DELETE(m_AttackFrame);

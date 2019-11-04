@@ -6,9 +6,11 @@ class cPlayer
 private:
 	vector<cBullet *>& m_Bullet;
 private:
-	cTexture * m_Image;
+	cTexture * m_IdleImage[4];
 	cTexture * m_MoveImage[4];
 	cTexture * m_AttackImage[4];
+
+	cFrame * m_IdleFrame;
 
 	cFrame * m_MoveFrame_3;
 	cFrame * m_MoveFrame_5;

@@ -26,6 +26,12 @@ void cLoadScene::Init()
 	Load("NowRoom", "./Image/MiniMap/NowRoom.png");
 	//Player
 	Load("Player", "./Image/Player.png");
+
+	Load("Player_Idle_Back", "./Image/Player/Idle/ghost_idle_back/(%d).png", 2);
+	Load("Player_Idle_Front", "./Image/Player/Idle/ghost_idle_front/(%d).png", 2);
+	Load("Player_Idle_Left", "./Image/Player/Idle/ghost_idle_left/(%d).png", 2);
+	Load("Player_Idle_Right", "./Image/Player/Idle/ghost_idle_right/(%d).png", 2);
+
 	Load("Player_Move_Back", "./Image/Player/Move/ghost_move_back/(%d).png", 3);
 	Load("Player_Move_Front", "./Image/Player/Move/ghost_move_front/(%d).png", 3);
 	Load("Player_Move_Left", "./Image/Player/Move/ghost_move_left/(%d).png", 5);
