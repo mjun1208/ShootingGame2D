@@ -1,6 +1,6 @@
 #pragma once
 enum TileState {
-	WoodBox, Pumpkin, Tile2, None
+	WoodBox, Pumpkin, Stage1_0 , Stage1_1 , None
 };
 class cTile
 {

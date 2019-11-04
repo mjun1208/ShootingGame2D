@@ -3,7 +3,26 @@
 
 cMapManager::cMapManager()
 {
+	ifstream mapIf;
 
+	int i = 0;
+
+	while (true) {
+		char str[128] = "";
+		sprintf(str, "./MapFile/map(%d).txt", i);
+		mapIf = ifstream(str);
+
+		if (mapIf.is_open()) {
+
+			i++;
+			mapIf.close();
+		}
+		else {
+			break;
+		}
+	}
+
+	Stage1_MapCount = i - 1;
 }
 
 cMapManager::~cMapManager()
@@ -71,9 +90,11 @@ void cMapManager::SaveInfo()
 	mapOf.close();
 }
 
-void cMapManager::LoadInfo()
+void cMapManager::LoadInfo(int Map)
 {
-	ifstream mapIf("./MapFile/map(0).txt");
+	char str[128] = "";
+	sprintf(str, "./MapFile/map(%d).txt", Map);
+	ifstream mapIf(str);
 
 	if (!mapIf.is_open())
 	{

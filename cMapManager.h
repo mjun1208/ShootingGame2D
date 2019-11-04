@@ -13,7 +13,7 @@ public:
 	void AddInfo(int _x, UINT _y, UINT _form);
 	void Sort();
 	void SaveInfo();
-	void LoadInfo();
+	void LoadInfo(int Map);
 
 	void Release();
 

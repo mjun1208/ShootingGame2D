@@ -23,7 +23,7 @@ void cLoadScene::Init()
 	Load("GoldRoom", "./Image/MiniMap/GoldRoom.png");
 	Load("BossRoom", "./Image/MiniMap/BossRoom.png");
 	Load("Path", "./Image/MiniMap/RoomPath.png");
-
+	Load("NowRoom", "./Image/MiniMap/NowRoom.png");
 	//Player
 	Load("Player", "./Image/Player.png");
 	Load("Player_Move_Back", "./Image/Player/Move/ghost_move_back/(%d).png", 3);
@@ -54,10 +54,19 @@ void cLoadScene::Init()
 	Load("Pumpkin_Break", "./Image/Tile/Pumpkin/Break/(%d).png", 5);
 	Load("Pumpkin_BreakHat", "./Image/Tile/Pumpkin/Break/Hat/(%d).png", 5);
 
+	Load("Stage1_0", "./Image/Tile/Stage1/0/(0).png");
+	Load("Stage1_0_Hat", "./Image/Tile/Stage1/0/Hat.png");
+	Load("Stage1_1", "./Image/Tile/Stage1/1/(0).png");
+	Load("Stage1_1_Hat", "./Image/Tile/Stage1/1/Hat.png");
+
 
 	Load("Tile2", "./Image/Tile/Tile(2).png");
 
 	Load("None", "./Image/Tile/None.png");
+
+	//Door
+	Load("Close_Door", "./Image/Door/Close.png");
+	Load("Open_Door", "./Image/Door/Open.png");
 
 	//Wall
 	Load("Wall_1", "./Image/Wall/Wall_1.png");

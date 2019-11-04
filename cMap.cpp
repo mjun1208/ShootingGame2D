@@ -2,7 +2,8 @@
 #include "cMap.h"
 
 
-cMap::cMap()
+cMap::cMap(int Map)
+	: Map(Map)
 {
 }
 
@@ -14,11 +15,16 @@ cMap::~cMap()
 
 void cMap::Init()
 {
-	MapSet->LoadInfo();
-	Tiles = MapSet->OutInfo();
-
+    //MapSet->Release();
+	MapSet->LoadInfo(Map);
+	for (auto iter : MapSet->OutInfo()) {
+		Tiles.push_back(new cTile(iter->Getrc(), iter->GetMatrix(), iter->GetState(), iter->GetPos()));
+	}
+	MapSet->Release();
+	//Tiles = MapSet->OutInfo();
 	for (auto iter : Tiles)
 		iter->Init();
+
 }
 
 void cMap::Update()
@@ -58,6 +64,9 @@ void cMap::HatRender()
 
 void cMap::Release()
 {
+	for (auto iter : Tiles)
+		SAFE_DELETE(iter);
+	Tiles.clear();
 	MapSet->Release();
 }
 
@@ -142,7 +151,7 @@ vector<Vec2> cMap::FindPath(Vec2 MyMatrix, Vec2 TargetMatrix)
 					Path[i]->IsOpen = false;
 			}
 
-			if (GetState(Path[i]->vMatrix) == WoodBox || GetState(Path[i]->vMatrix) == Pumpkin) {
+			if (GetState(Path[i]->vMatrix) != None) {
 				Path[i]->IsOpen = false;
 
 				switch (i)

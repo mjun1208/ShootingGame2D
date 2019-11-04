@@ -38,5 +38,6 @@ public:
 	void Release();
 
 	Vec2 GetPos() { return m_vPos; }
+	void SetPos(Vec2 pos) { m_vPos = pos; }
 };
 

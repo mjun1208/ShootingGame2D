@@ -117,7 +117,7 @@ void cEnemy::CheckColl(cMap * map)
 		(LONG)(movePos.x - m_Image->info.Width / 2),(LONG)(movePos.y - 2),(LONG)(movePos.x + m_Image->info.Width / 2),(LONG)(movePos.y + 2)
 	};
 	for (auto iter : map->GetTile()) {
-		if (iter->GetState() == WoodBox || iter->GetState() == Pumpkin) {
+		if (iter->GetState() != None) {
 			//if (movePos.x + 35 > iter->GetCollrc().left &&
 			//	movePos.y > iter->GetCollrc().top &&
 			//	movePos.x - 35 < iter->GetCollrc().right &&

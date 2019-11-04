@@ -30,7 +30,7 @@ void cPlayer::Init()
 	m_AttackImage[RIGHT] = IMAGE->FindImage("Player_Attack_Right");
 
 	m_vDir = Vec2(0, 0);
-	m_vPos = Vec2(150, 150);
+	m_vPos = Vec2(150, 100);
 
 	b_Move = false;
 	b_Attack = false;
@@ -124,7 +124,7 @@ void cPlayer::CheckColl(cMap * map)
 	};
 
 	for (auto iter : map->GetTile()) {
-		if (iter->GetState() == WoodBox || iter->GetState() == Pumpkin) {
+		if (iter->GetState() != None) {
 			//if (movePos.x + 35 > iter->GetCollrc().left &&
 			//	movePos.y > iter->GetCollrc().top &&
 			//	movePos.x - 35 < iter->GetCollrc().right &&

@@ -14,6 +14,8 @@ public:
 
 	cScene * AddScene(const string& key, cScene * scenePtr);
 	cScene * ChangeScene(const string& key);
+	cScene * ChangeScene(cScene * scenePtr);
+	void DeleteScene(const string& key);
 
 	void Update();
 	void Render();

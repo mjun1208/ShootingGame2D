@@ -22,7 +22,7 @@ cScene * cSceneManager::AddScene(const string & key, cScene * scenePtr)
 		m_Scene.insert(make_pair(key, scenePtr));
 	}
 
-	return nullptr;
+	return scenePtr;
 }
 
 cScene * cSceneManager::ChangeScene(const string & key)
@@ -34,6 +34,22 @@ cScene * cSceneManager::ChangeScene(const string & key)
 	}
 	return nullptr;
 }
+
+cScene * cSceneManager::ChangeScene(cScene * scenePtr)
+{
+	m_NextScene = scenePtr;
+	return m_NextScene;
+}
+
+void cSceneManager::DeleteScene(const string & key)
+{
+	auto find = m_Scene.find(key);
+	if (find != m_Scene.end()) {
+		m_Scene.erase(key);
+	}
+}
+
+
 
 void cSceneManager::Update()
 {
@@ -59,8 +75,9 @@ void cSceneManager::Release()
 	if (m_NowScene)
 		m_NowScene->Release();
 
-	for (auto iter : m_Scene)
-		SAFE_DELETE(iter.second);
+	for (auto iter : m_Scene) {
 
+		SAFE_DELETE(iter.second);
+	}
 	m_Scene.clear();
 }

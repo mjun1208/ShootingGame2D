@@ -1,6 +1,7 @@
 #include "DXUT.h"
 #include "cMapAdmin.h"
 
+#include "cTestScene.h"
 
 cMapAdmin::cMapAdmin()
 {
@@ -60,8 +61,12 @@ void cMapAdmin::Spawn()
 	    Spawn();
 	    DEBUG_LOG("Re");
 	}
-	else
+	else {
+		SpawnScene();
+		NowMap = Vec2(25, 25);
+		ChangeScene(NowMap);
 		DEBUG_LOG("End");
+	}
 }
 
 void cMapAdmin::SpawnMap(Vec2 _NowMap)
@@ -243,52 +248,76 @@ void cMapAdmin::SpawnRandMapState(Vec2 _NowMap)
 	return;
 }
 
-void cMapAdmin::Render()
+void cMapAdmin::Render(Vec2 pos)
 {
 
-	DEBUG_LOG(MaxCount);
+	//DEBUG_LOG(MaxCount);
 	for (int i = 0; i < 50; i++) {
 		for (int j = 0; j < 50;j++) {
 			switch (Map[i][j].State)
 			{
 			case NONE:
-
 				break;
 			case StartRoom:
-				IMAGE->Render(IMAGE->FindImage("StartRoom"), Vec2(i * 60, j * 60), 0, true);
+				IMAGE->Render(IMAGE->FindImage("StartRoom"), pos - Vec2(i * 60, j * 60), 0, true);
 				break;
 			case NormalRoom:
-				IMAGE->Render(IMAGE->FindImage("NormalRoom"), Vec2(i * 60, j * 60), 0, true);
+				IMAGE->Render(IMAGE->FindImage("NormalRoom"), pos - Vec2(i * 60, j * 60), 0, true);
 				break;
 			case GoldRoom:
-				IMAGE->Render(IMAGE->FindImage("GoldRoom"), Vec2(i * 60, j * 60), 0, true);
+				IMAGE->Render(IMAGE->FindImage("GoldRoom"), pos - Vec2(i * 60, j * 60), 0, true);
 				break;
 			case ShopRoom:
-				IMAGE->Render(IMAGE->FindImage("ShopRoom"), Vec2(i * 60, j * 60), 0, true);
+				IMAGE->Render(IMAGE->FindImage("ShopRoom"), pos - Vec2(i * 60, j * 60), 0, true);
 				break;
 			case BossRoom:
-				IMAGE->Render(IMAGE->FindImage("BossRoom"), Vec2(i * 60, j * 60), 0, true);
+				IMAGE->Render(IMAGE->FindImage("BossRoom"), pos - Vec2(i * 60, j * 60), 0, true);
 				break;
 			default:
 				break;
 			}
 
 			if (Map[i][j].ConnectPath[LEFT] == true) {
-				IMAGE->Render(IMAGE->FindImage("Path"), Vec2(i * 60 - 30, j * 60), 0, true);
+				IMAGE->Render(IMAGE->FindImage("Path"), pos - Vec2(i * 60 - 30, j * 60), 0, true);
 			}
 			if (Map[i][j].ConnectPath[RIGHT] == true) {
-				IMAGE->Render(IMAGE->FindImage("Path"), Vec2(i * 60 + 30, j * 60), 0, true);
+				IMAGE->Render(IMAGE->FindImage("Path"), pos - Vec2(i * 60 + 30, j * 60), 0, true);
 			}
 			if (Map[i][j].ConnectPath[TOP] == true) {
-				IMAGE->Render(IMAGE->FindImage("Path"), Vec2(i * 60, j * 60 + 30), 90, true);
+				IMAGE->Render(IMAGE->FindImage("Path"), pos - Vec2(i * 60, j * 60 + 30), 90, true);
 			}
 			if (Map[i][j].ConnectPath[BOTTOM] == true) {
-				IMAGE->Render(IMAGE->FindImage("Path"), Vec2(i * 60, j * 60 - 30), 90, true);
+				IMAGE->Render(IMAGE->FindImage("Path"), pos - Vec2(i * 60, j * 60 - 30), 90, true);
 			}
 		}
 	}
-
+	IMAGE->Render(IMAGE->FindImage("NowRoom"), pos - Vec2(NowMap.x * 60, NowMap.y * 60), 0, true);
 	IMAGE->ReBegin(true);
 	IMAGE->PrintText("ÃÖ´ë ¸Ê:" + to_string(MaxCount), Vec2(0, 0), 60, D3DCOLOR_XRGB(0, 0, 0));
 	IMAGE->ReBegin(false);
+}
+
+void cMapAdmin::SpawnScene()
+{
+	//i_Count = 0;
+	i_Count = 0;
+	for (int i = 0; i < 50; i++) {
+		for (int j = 0; j < 50; j++) {
+			if (Map[i][j].State == MapState::NormalRoom ||
+				Map[i][j].State == MapState::StartRoom) {
+				char str[128] = "Stage1_";
+				sprintf(str, "%d", i_Count);
+				DEBUG_LOG(i);
+				SCENE->DeleteScene(str);
+				Scenes[i][j] = SCENE->AddScene(str, new cTestScene);
+				i_Count++;
+			}
+		}
+	}
+}
+
+void cMapAdmin::ChangeScene(Vec2 Map)
+{
+	NowMap = Map;
+	SCENE->ChangeScene(Scenes[(int)(Map.x)][(int)(Map.y)]);
 }

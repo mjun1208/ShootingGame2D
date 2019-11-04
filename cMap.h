@@ -15,10 +15,11 @@ private:
 
 		Vec2 ParentMatrix;
 	};
+	int Map;
 private:
 	vector<cTile*> Tiles;
 public:
-	cMap();
+	cMap(int Map);
 	~cMap();
 
 	void Init();

@@ -18,7 +18,7 @@ void cMiniMapScene::Init()
 	Map->Init();
 	DEBUG_LOG("Mini");
 
-	CAMERA->SetPosition(Vec3(25 * 60, 25 * 60, 0));
+	//CAMERA->SetPosition(Vec3(25 * 60, 25 * 60, 0));
 }
 
 void cMiniMapScene::Update()
@@ -44,7 +44,7 @@ void cMiniMapScene::Update()
 
 void cMiniMapScene::Render()
 {
-	Map->Render();
+	Map->Render(Vec2(25 * 60 + WINSIZEX / 2, 25 * 60 + WINSIZEY / 2));
 }
 
 void cMiniMapScene::Release()

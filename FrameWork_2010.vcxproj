@@ -48,7 +48,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|X64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -388,6 +388,7 @@
     <ClCompile Include="cBullet.cpp" />
     <ClCompile Include="cBulletAdmin.cpp" />
     <ClCompile Include="cButton.cpp" />
+    <ClCompile Include="cDoor.cpp" />
     <ClCompile Include="cEnemy.cpp" />
     <ClCompile Include="cEnemyAdmin.cpp" />
     <ClCompile Include="cMap.cpp" />
@@ -400,6 +401,7 @@
     <ClInclude Include="cBulletAdmin.h" />
     <ClInclude Include="cButton.h" />
     <ClInclude Include="cCameraManager.h" />
+    <ClInclude Include="cDoor.h" />
     <ClInclude Include="cEnemy.h" />
     <ClInclude Include="cEnemyAdmin.h" />
     <ClInclude Include="cImageManager.h" />

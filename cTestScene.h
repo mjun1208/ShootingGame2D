@@ -4,6 +4,7 @@ class cEnemyAdmin;
 class cBulletAdmin;
 class cPlayer;
 class cMap;
+class cDoor;
 class cTestScene : public cScene
 {
 private:
@@ -11,10 +12,13 @@ private:
 	cMap * m_TestMap;
 	cEnemyAdmin * m_Enemy;
 	cPlayer * m_Player;
-
+	cDoor * m_Door[4];
 public:
 	cTestScene();
 	virtual ~cTestScene();
+
+	void Reset();
+	void Destory();
 
 	virtual void Init() override;
 	virtual void Update() override;

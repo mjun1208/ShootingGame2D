@@ -40,3 +40,18 @@ const int WINSIZEY = 720;
 #include "cMapManager.h"
 
 #include "cButton.h"
+
+
+extern int Stage1_MapCount;
+extern int Stage2_MapCount;
+extern int Stage3_MapCount;
+
+extern int Now_Stage1_Map;
+
+#include "cMapAdmin.h"
+
+extern cMapAdmin Stage1_MiniMap;
+extern cMapAdmin Stage2_MiniMap;
+extern cMapAdmin Stage3_MiniMap;
+
+extern Dirction NowDoor;

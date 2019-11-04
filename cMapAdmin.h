@@ -9,6 +9,7 @@ struct _Map
 class cMapAdmin
 {
 private:
+	cScene * Scenes[50][50];
 	_Map Map[50][50];
 	bool CheckBoss[50][50];
 	Vec2 NowMap;
@@ -18,6 +19,8 @@ private:
 	bool IsGoldRoom;
 	bool IsShopRoom;
 	bool IsBossRoom;
+
+	int i_Count = 0;
 public:
 	cMapAdmin();
 	~cMapAdmin();
@@ -29,6 +32,12 @@ public:
 	void RandSelect();
 
 	void SpawnRandMapState(Vec2 _NowMap);
-	void Render();
+	void Render(Vec2 pos);
+
+	void ReSpawn() { Init(); Spawn();}
+
+	void SpawnScene();
+	void ChangeScene(Vec2 Map);
+	_Map GetNowMap() { return Map[(int)NowMap.x][(int)NowMap.y]; }
 };
 

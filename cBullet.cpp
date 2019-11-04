@@ -21,7 +21,7 @@ void cBullet::CheckColl(cMap * map)
 	    	m_vPos.x - 5 < iter->Getrc().right &&
 	    	m_vPos.y - 5 < iter->Getrc().bottom &&
 			!iter->GetDel()) {
-		    if (iter->GetState() == Pumpkin || iter->GetState() == WoodBox)
+		    if (iter->GetState() != None)
 				b_Del = true;
 			if (iter->GetState() == Pumpkin) {
 				iter->SetDel(true);

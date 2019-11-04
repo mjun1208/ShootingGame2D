@@ -25,7 +25,7 @@ void cMapEditerScene::Init()
 				(j * 100) + 100
 			};
 			vCurTilePos = Vec2(i * 100 + 50, j * 100 + 50);
-			Tiles.push_back(new cTile(rc, Vec2(i, j), Tile2, vCurTilePos));
+			Tiles.push_back(new cTile(rc, Vec2(i, j), None, vCurTilePos));
 		}
 	}
 }
@@ -37,16 +37,18 @@ void cMapEditerScene::Update()
 	if (INPUT->KeyDown('2'))
 		State = Pumpkin;
 	if (INPUT->KeyDown('3'))
-		State = Tile2;
+		State = Stage1_0;
 	if (INPUT->KeyDown('4'))
+		State = Stage1_1;
+	if (INPUT->KeyDown('5'))
 		State = None;
 
 	CheckCurrentTile();
 	SpawnTile();
-	//
+
 	if (INPUT->KeyDown('L'))
 	{
-		MapSet->LoadInfo();
+		MapSet->LoadInfo(Now_Stage1_Map);
 		MapSet->OutInfo();
 	}
 	if (INPUT->KeyDown('S')) {
@@ -54,7 +56,6 @@ void cMapEditerScene::Update()
 			MapSet->AddInfo(iter->GetMatrix().x, iter->GetMatrix().y, iter->GetState());
 		MapSet->SaveInfo();
 	}
-	//
 	if (INPUT->KeyDown('W')) {
 		for (auto iter : Tiles)
 			DEBUG_LOG(iter->GetMatrix().x << " " << iter->GetMatrix().y << " " << iter->GetState());
@@ -84,11 +85,15 @@ void cMapEditerScene::Render()
 	case Pumpkin:
 		m_image = IMAGE->FindImage("Pumpkin")->FindImage(0);
 		break;
-	case Tile2:
-		m_image = IMAGE->FindImage("Tile2");
+	case Stage1_0:
+		m_image = IMAGE->FindImage("Stage1_0");
+		break;
+	case Stage1_1:
+		m_image = IMAGE->FindImage("Stage1_1");
 		break;
 	case None:
 		m_image = IMAGE->FindImage("None");
+		break;
 	default:
 		break;
 	}

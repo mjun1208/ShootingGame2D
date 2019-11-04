@@ -75,6 +75,9 @@
     <Filter Include="Object\Button">
       <UniqueIdentifier>{6fbb5e2d-591c-401e-8e09-2341a61021be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Door">
+      <UniqueIdentifier>{8c115ff3-8754-4d6a-99d2-96ac08b09150}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -219,6 +222,9 @@
     <ClCompile Include="cButton.cpp">
       <Filter>Object\Button</Filter>
     </ClCompile>
+    <ClCompile Include="cDoor.cpp">
+      <Filter>Object\Door</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -306,6 +312,9 @@
     </ClInclude>
     <ClInclude Include="cButton.h">
       <Filter>Object\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="cDoor.h">
+      <Filter>Object\Door</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

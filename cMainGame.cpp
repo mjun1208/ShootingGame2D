@@ -28,10 +28,8 @@ void cMainGame::Init()
 	SCENE->AddScene("Title", new cTitleScene);
 	SCENE->AddScene("Map", new cMapEditerScene);
 	SCENE->AddScene("MiniMap", new cMiniMapScene);
-	SCENE->AddScene("Test", new cTestScene);
 
 	SCENE->ChangeScene("Load");
-
 }
 
 void cMainGame::Update()

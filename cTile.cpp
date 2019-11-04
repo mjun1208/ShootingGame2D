@@ -18,9 +18,15 @@ void cTile::SetImage()
 		m_BreakImage = IMAGE->FindImage("Pumpkin_Break");
 		m_BreakHatImage = IMAGE->FindImage("Pumpkin_BreakHat");
 		break;
-	case Tile2:
-		m_image = IMAGE->FindImage("Tile2");
-		m_HatImage = nullptr;
+	case Stage1_0:
+		m_image = IMAGE->FindImage("Stage1_0");
+		m_HatImage = IMAGE->FindImage("Stage1_0_Hat");
+		m_BreakImage = nullptr;
+		m_BreakHatImage = nullptr;
+		break;
+	case Stage1_1:
+		m_image = IMAGE->FindImage("Stage1_1");
+		m_HatImage = IMAGE->FindImage("Stage1_1_Hat");
 		m_BreakImage = nullptr;
 		m_BreakHatImage = nullptr;
 		break;
@@ -80,10 +86,10 @@ void cTile::Init()
 	};
 
 	vPos = Vec2(vMatrix.x * 100 + 50, vMatrix.y * 100 + 50);
-
+	
 	Collrc = {
 		(LONG)(vPos.x - m_image->FindImage(0)->info.Width + 50),
-		(LONG)(vPos.y - m_image->FindImage(0)->info.Height + 50),
+		(LONG)(vPos.y - m_image->FindImage(0)->info.Height + (m_image->FindImage(0)->info.Height - 40) ),
 		(LONG)(vPos.x + m_image->FindImage(0)->info.Width / 2),
 		(LONG)(vPos.y + 50)
 	};
@@ -92,6 +98,7 @@ void cTile::Init()
 void cTile::Update()
 {
 	m_Frame->Frame();
+	
 	if (m_HatImage)
 		m_HatFrame->Frame();
 

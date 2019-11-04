@@ -1,7 +1,7 @@
 #include "DXUT.h"
 #include "cTitleScene.h"
 
-
+#include "cTestScene.h"
 cTitleScene::cTitleScene()
 {
 }
@@ -39,14 +39,20 @@ void cTitleScene::Update()
 	if (m_ExitButton->Update())
 		PostQuitMessage(0);
 
-	if (m_MakeMap->Update())
+	if (m_MakeMap->Update()) {
 		SCENE->ChangeScene("Map");
+	}
 
 	if (m_OptionButton->Update())
 		DEBUG_LOG("¿É¼Ç");
 
-	if (m_StartButton->Update())
-		SCENE->ChangeScene("Test");
+	if (m_StartButton->Update()) {
+		//SCENE->AddScene("Test", new cTestScene);
+		NowDoor = Dirction::FOLLOW;
+		Stage1_MiniMap.Init();
+		Stage1_MiniMap.Spawn();
+		//SCENE->ChangeScene("Test");
+	}
 
 
 }

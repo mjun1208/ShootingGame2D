@@ -9,6 +9,17 @@
 
 cMainGame mg;
 
+int Now_Stage1_Map = 0;
+int Stage1_MapCount;
+int Stage2_MapCount;
+int Stage3_MapCount;
+
+cMapAdmin Stage1_MiniMap;
+cMapAdmin Stage2_MiniMap;
+cMapAdmin Stage3_MiniMap;
+
+Dirction NowDoor = Dirction::FOLLOW;
+
 //--------------------------------------------------------------------------------------
 // Rejects any D3D9 devices that aren't acceptable to the app by returning false
 //--------------------------------------------------------------------------------------
