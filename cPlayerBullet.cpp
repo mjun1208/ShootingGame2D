@@ -6,10 +6,14 @@ cPlayerBullet::cPlayerBullet(Vec2 Pos, int Dir)
 	: cBullet(Pos, Dir)
 {
 	m_image = IMAGE->FindImage("Player_Bullet");
-
+	m_Tag = PlayerBullet;
 	b_Del = false;
 	f_LifeTime = 2;
 	f_CheckTime = 0;
+
+	m_rc = {
+		(LONG)(m_vPos.x - m_image->info.Width / 2),(LONG)(m_vPos.y - m_image->info.Height),(LONG)(m_vPos.x + m_image->info.Width / 2),(LONG)(m_vPos.y + m_image->info.Height)
+	};
 }
 
 
@@ -43,6 +47,10 @@ void cPlayerBullet::Update()
 
 	if (f_CheckTime >= f_LifeTime)
 		b_Del = true;
+
+	m_rc = {
+		(LONG)(m_vPos.x - m_image->info.Width / 2),(LONG)(m_vPos.y - m_image->info.Height / 2),(LONG)(m_vPos.x + m_image->info.Width / 2),(LONG)(m_vPos.y + m_image->info.Height / 2)
+	};
 }
 
 void cPlayerBullet::Render()

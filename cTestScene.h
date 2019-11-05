@@ -5,6 +5,7 @@ class cBulletAdmin;
 class cPlayer;
 class cMap;
 class cDoor;
+class cCollAdmin;
 class cTestScene : public cScene
 {
 private:
@@ -13,8 +14,11 @@ private:
 	cEnemyAdmin * m_Enemy;
 	cPlayer * m_Player;
 	cDoor * m_Door[4];
+	cCollAdmin * m_Coll;
+	MapState m_MapState;
+	bool IsDoorOpen;
 public:
-	cTestScene();
+	cTestScene(MapState mapState);
 	virtual ~cTestScene();
 
 	void Reset();

@@ -27,6 +27,13 @@ void cEnemy::Init(cMap * map)
 			m_vPos = iter->GetPos();
 		}
 	}
+
+	m_rc = {
+		(LONG)(m_vPos.x - m_Image->info.Width / 2),(LONG)(m_vPos.y - m_Image->info.Height / 2),(LONG)(m_vPos.x + m_Image->info.Width / 2),(LONG)(m_vPos.y + m_Image->info.Height / 2)
+	};
+
+	b_Del = false;
+	i_Hp = 3;
 }
 
 void cEnemy::Update(Vec2 Target, cMap * map)
@@ -35,6 +42,12 @@ void cEnemy::Update(Vec2 Target, cMap * map)
 	//	map->FindPath(map->GetMatrix(m_vPos), map->GetMatrix(Target));
 	Movement(Target, map);
 	CheckColl(map);
+	m_rc = {
+		(LONG)(m_vPos.x - m_Image->info.Width / 2),(LONG)(m_vPos.y - m_Image->info.Height / 2),(LONG)(m_vPos.x + m_Image->info.Width / 2),(LONG)(m_vPos.y + m_Image->info.Height / 2)
+	};
+
+	if (i_Hp <= 0)
+		b_Del = true;
 }
 
 void cEnemy::Render()
@@ -113,7 +126,7 @@ void cEnemy::CheckColl(cMap * map)
 	int ChangerH = 0;
 
 
-	RECT Rect = {
+	RECT rc = {
 		(LONG)(movePos.x - m_Image->info.Width / 2),(LONG)(movePos.y - 2),(LONG)(movePos.x + m_Image->info.Width / 2),(LONG)(movePos.y + 2)
 	};
 	for (auto iter : map->GetTile()) {
@@ -124,7 +137,7 @@ void cEnemy::CheckColl(cMap * map)
 			//	movePos.y < iter->GetCollrc().bottom) {
 			//	CanGo = false;
 			//}
-			if (IntersectRect(&InterRect, &Rect, &iter->GetCollrc())) {
+			if (IntersectRect(&InterRect, &rc, &iter->GetCollrc())) {
 				InterW = InterRect.right - InterRect.left;
 				InterH = InterRect.bottom - InterRect.top;
 

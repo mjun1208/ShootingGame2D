@@ -303,13 +303,12 @@ void cMapAdmin::SpawnScene()
 	i_Count = 0;
 	for (int i = 0; i < 50; i++) {
 		for (int j = 0; j < 50; j++) {
-			if (Map[i][j].State == MapState::NormalRoom ||
-				Map[i][j].State == MapState::StartRoom) {
+			if (Map[i][j].State != MapState::NONE) {
 				char str[128] = "Stage1_";
 				sprintf(str, "%d", i_Count);
 				DEBUG_LOG(i);
 				SCENE->DeleteScene(str);
-				Scenes[i][j] = SCENE->AddScene(str, new cTestScene);
+				Scenes[i][j] = SCENE->AddScene(str, new cTestScene((MapState)Map[i][j].State));
 				i_Count++;
 			}
 		}

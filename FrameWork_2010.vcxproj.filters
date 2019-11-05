@@ -78,6 +78,9 @@
     <Filter Include="Object\Door">
       <UniqueIdentifier>{8c115ff3-8754-4d6a-99d2-96ac08b09150}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Object\Collision">
+      <UniqueIdentifier>{bb9b950f-dda2-4369-a5a9-f934f6598d84}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -225,6 +228,9 @@
     <ClCompile Include="cDoor.cpp">
       <Filter>Object\Door</Filter>
     </ClCompile>
+    <ClCompile Include="cCollAdmin.cpp">
+      <Filter>Object\Collision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h" />
@@ -315,6 +321,9 @@
     </ClInclude>
     <ClInclude Include="cDoor.h">
       <Filter>Object\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="cCollAdmin.h">
+      <Filter>Object\Collision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

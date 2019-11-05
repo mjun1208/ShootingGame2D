@@ -24,6 +24,7 @@ void cLoadScene::Init()
 	Load("BossRoom", "./Image/MiniMap/BossRoom.png");
 	Load("Path", "./Image/MiniMap/RoomPath.png");
 	Load("NowRoom", "./Image/MiniMap/NowRoom.png");
+	Load("Map", "./Image/MiniMap/Map.png");
 	//Player
 	Load("Player", "./Image/Player.png");
 
@@ -69,6 +70,11 @@ void cLoadScene::Init()
 	Load("Tile2", "./Image/Tile/Tile(2).png");
 
 	Load("None", "./Image/Tile/None.png");
+
+	Load("StartRoomDummy", "./Image/Dummy/Start.png");
+	Load("ShopRoomDummy", "./Image/Dummy/Shop.png");
+	Load("GoldRoomDummy", "./Image/Dummy/Gold.png");
+	Load("BossRoomDummy", "./Image/Dummy/Boss.png");
 
 	//Door
 	Load("Close_Door", "./Image/Door/Close.png");
