@@ -59,7 +59,7 @@ void cTile::SetFrame()
  	}
 }
 
-cTile::cTile(RECT rc, Vec2 matrix, int state, Vec2 pos)
+cTile::cTile(RECT rc, Vec2 matrix, TileState state, Vec2 pos)
 	: rc(rc), vMatrix(matrix) , State(state), vPos(pos)
 {
 	SetImage();

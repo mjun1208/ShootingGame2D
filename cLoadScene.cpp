@@ -52,6 +52,8 @@ void cLoadScene::Init()
 
 	//Tiles
 	Load("Stage1_BackGroundTile", "./Image/BackGroundTile/Stage1.png");
+	Load("Stage2_BackGroundTile", "./Image/BackGroundTile/Stage2(%d).png", 1);
+	Load("Stage3_BackGroundTile", "./Image/BackGroundTile/Stage3(%d).png", 2);
 
 	Load("WoodBox", "./Image/Tile/WoodBox/(0).png");
 	Load("WoodBox_Hat", "./Image/Tile/WoodBox/Hat.png");
@@ -97,6 +99,20 @@ void cLoadScene::Init()
 	Load("OptionButton", "./Image/Title/Button/OptionButton.png");
 	Load("StartButton", "./Image/Title/Button/StartButton.png");
 	Load("MakeMapButton", "./Image/Title/Button/MakeMapButton.png");
+
+	//MakeMap
+	Load("MakeMap_Interface", "./Image/MakeMap/Interface.png");
+	Load("MakeMap_Stage1_Button", "./Image/MakeMap/Stage1.png");
+	Load("MakeMap_Stage2_Button", "./Image/MakeMap/Stage2.png");
+	Load("MakeMap_Stage3_Button", "./Image/MakeMap/Stage3.png");
+	Load("MakeMap_Save_Button", "./Image/MakeMap/Save.png");
+	Load("MakeMap_Title_Button", "./Image/MakeMap/Title.png");
+	
+	Load("MakeMap_MiniMap", "./Image/MakeMap/MiniMap/MiniMap.png");
+	Load("MakeMap_MiniMap_Tile", "./Image/MakeMap/MiniMap/Tile(%d).png",1);
+	Load("MakeMap_MiniMap_Pumpkin", "./Image/MakeMap/MiniMap/Pumpkin.png");
+	Load("MakeMap_MiniMap_Enemy", "./Image/MakeMap/MiniMap/Enemy.png");
+
 
 	m_MaxSoundLoad = m_SoundLoad.size();
 	m_MaxLoad = m_Load.size();

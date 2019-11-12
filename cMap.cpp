@@ -2,8 +2,8 @@
 #include "cMap.h"
 
 
-cMap::cMap(int Map)
-	: Map(Map)
+cMap::cMap(int NowStage, int Map)
+	: Map(Map), NowStage(NowStage)
 {
 }
 
@@ -25,6 +25,30 @@ void cMap::Init()
 	for (auto iter : Tiles)
 		iter->Init();
 
+	for (int i = 0; i < 15; i++) {
+		for (int j = 0; j < 15; j++) {
+			switch (NowStage)
+			{
+			case 1:
+				BackGroundArray[i][j] = 0;
+				break;
+			case 2:
+				int Stage2BackNowTile;
+				if ((i + j + 1) % 2 == 1)
+					Stage2BackNowTile = 0;
+				else
+					Stage2BackNowTile = 1;
+				BackGroundArray[i][j] = Stage2BackNowTile;
+				break;
+			case 3:
+				BackGroundArray[i][j] = rand() % 3;
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
 }
 
 void cMap::Update()
@@ -35,16 +59,25 @@ void cMap::Update()
 
 void cMap::BackGroundRender()
 {
-	for (int i = 0; i < 13; i++) {
-		for (int j = 0; j < 8; j++) {
-			IMAGE->Render(IMAGE->FindImage("Stage1_BackGroundTile"), Vec2(i * 100 + 50, j * 100 + 50), 0, true);
+	if (NowStage == 2) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				IMAGE->Render(m_BackGround->FindImage(BackGroundArray[i][j]), Vec2(i * 200 + 100, j * 200 + 100), 0, true);
+			}
+		}
+	}
+	else {
+		for (int i = 0; i < 15; i++) {
+			for (int j = 0; j < 15; j++) {
+				IMAGE->Render(m_BackGround->FindImage(BackGroundArray[i][j]), Vec2(i * 100 + 50, j * 100 + 50), 0, true);
+			}
 		}
 	}
 }
 
 void cMap::Render()
 {
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 15; i++) {
 		for (auto iter : Tiles) {
 			if (iter->GetMatrix().y == i)
 				iter->Render();
@@ -54,7 +87,7 @@ void cMap::Render()
 
 void cMap::HatRender()
 {
-	for (int i = 0; i < 8; i++) {
+	for (int i = 0; i < 15; i++) {
 		for (auto iter : Tiles) {
 			if (iter->GetMatrix().y == i)
 				iter->HatRender();

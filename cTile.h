@@ -8,7 +8,7 @@ private:
 	RECT rc;
 	RECT Collrc;
 	Vec2 vMatrix;
-	int State;
+	TileState State;
 	cTexture * m_image;
 	cTexture * m_BreakImage;
 	cTexture * m_HatImage;
@@ -24,7 +24,7 @@ private:
 	void SetImage();
 	void SetFrame();
 public:
-	cTile(RECT rc, Vec2 matrix , int state ,Vec2 pos);
+	cTile(RECT rc, Vec2 matrix , TileState state ,Vec2 pos);
 	~cTile();
 	
 	void Init();
@@ -39,8 +39,8 @@ public:
 	Vec2 GetMatrix() { return vMatrix; }
 	RECT GetCollrc() { return Collrc; }
 	
-	int GetState() { return State; }
-	void SetState(int state) { Release();  State = state; SetImage(); Init(); SetFrame(); }
+	TileState GetState() { return State; }
+	void SetState(int state) { Release();  State = (TileState)state; SetImage(); Init(); SetFrame(); }
 
 	bool GetDel() { return b_Del; }
 	void SetDel(bool del) { b_Del = del; }

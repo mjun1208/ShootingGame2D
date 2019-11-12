@@ -137,16 +137,11 @@ void cPlayer::CheckColl(cMap * map)
 
 	for (auto iter : map->GetTile()) {
 		if (iter->GetState() != None) {
-			//if (movePos.x + 35 > iter->GetCollrc().left &&
-			//	movePos.y > iter->GetCollrc().top &&
-			//	movePos.x - 35 < iter->GetCollrc().right &&
-			//	movePos.y < iter->GetCollrc().bottom) {
-			//	CanGo = false;
-			//}
+
 			if (IntersectRect(&InterRect, &PlayerRect, &iter->Getrc())) {
 				InterW = InterRect.right - InterRect.left;
 				InterH = InterRect.bottom - InterRect.top;
-				//iter->SetDel(true);
+
 				if (InterW > InterH) {
 					if (InterRect.top == iter->Getrc().top) {
 						ChangerH = -InterH;

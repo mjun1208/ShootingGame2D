@@ -41,14 +41,14 @@ void cMapManager::AddInfo(int _x, UINT _y, UINT _form)
 		}
 	}
 	RECT rc = {0,0,0,0};
-	mapCode.push_back(new cTile(rc, Vec2(_x, _y), _form, Vec2(0,0)));
+	mapCode.push_back(new cTile(rc, Vec2(_x, _y), (TileState)_form, Vec2(0,0)));
 }
 
 void cMapManager::Sort()
 {
 }
 
-void cMapManager::SaveInfo()
+void cMapManager::SaveInfo(int Stage)
 {
 	ofstream mapOf;
 	ifstream mapIf;
@@ -56,7 +56,20 @@ void cMapManager::SaveInfo()
 	//string path;
 	while (true) {
 		char str[128] = "";
-		sprintf(str, "./MapFile/map(%d).txt", i);
+		switch (Stage)
+		{
+		case 1:
+			sprintf(str, "./MapFile/Stage1/map(%d).txt", i);
+			break;
+		case 2:
+			sprintf(str, "./MapFile/Stage2/map(%d).txt", i);
+			break;
+		case 3:
+			sprintf(str, "./MapFile/Stage3/map(%d).txt", i);
+			break;
+		default:
+			break;
+		}
 		mapIf = ifstream(str);
 
 		if (mapIf.is_open()) {

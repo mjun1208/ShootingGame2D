@@ -26,7 +26,9 @@ void cMainGame::Init()
 	
 	SCENE->AddScene("Load", new cLoadScene);
 	SCENE->AddScene("Title", new cTitleScene);
-	SCENE->AddScene("Map", new cMapEditerScene);
+	SCENE->AddScene("Map", new cMapEditerScene(1));
+	SCENE->AddScene("Map2", new cMapEditerScene(2));
+	SCENE->AddScene("Map3", new cMapEditerScene(3));
 	SCENE->AddScene("MiniMap", new cMiniMapScene);
 
 	SCENE->ChangeScene("Load");

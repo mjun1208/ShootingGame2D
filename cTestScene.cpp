@@ -29,7 +29,7 @@ void cTestScene::Reset()
 	}
 	else
 		Now_Stage1_Map = -1;
-	m_TestMap = new cMap(Now_Stage1_Map);
+	m_TestMap = new cMap(1, Now_Stage1_Map);
 	m_TestMap->Init();
 
 	m_Enemy = new cEnemyAdmin();

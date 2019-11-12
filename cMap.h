@@ -16,10 +16,13 @@ private:
 		Vec2 ParentMatrix;
 	};
 	int Map;
+	int NowStage;
+	cTexture * m_BackGround;
+	int BackGroundArray[15][15];
 private:
 	vector<cTile*> Tiles;
 public:
-	cMap(int Map);
+	cMap(int NowStage, int Map);
 	~cMap();
 
 	void Init();
