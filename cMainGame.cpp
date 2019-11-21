@@ -43,7 +43,7 @@ void cMainGame::Update()
 
 void cMainGame::Render()
 {
-	CAMERA->SetTramsform();
+	CAMERA->SetTransform();
 
 	IMAGE->Begin(false);
 	SCENE->Render();

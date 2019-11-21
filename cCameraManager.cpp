@@ -55,7 +55,7 @@ void cCameraManager::Update()
 
 }
 
-void cCameraManager::SetTramsform()
+void cCameraManager::SetTransform()
 {
 	g_Device->SetTransform(D3DTS_VIEW, &m_matView);
 }

@@ -15,7 +15,7 @@ public:
 
 	void Init();
 	void Update();
-	void SetTramsform();
+	void SetTransform();
 
 	Vec2 GetCameraPos() { return m_vCameraPos; }
 	Vec2 GetScrollPos() { return m_vScrollPos; }
