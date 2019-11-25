@@ -24,12 +24,12 @@ void cTitleScene::Init()
 
 void cTitleScene::Update()
 {
-	if (INPUT->KeyDown('A'))
-		SCENE->ChangeScene("Map");
-	if (INPUT->KeyDown('S'))
-		SCENE->ChangeScene("MiniMap");
-	if (INPUT->KeyDown('D'))
-		SCENE->ChangeScene("Test");
+	//if (INPUT->KeyDown('A'))
+	//	SCENE->ChangeScene("Map");
+	//if (INPUT->KeyDown('S'))
+	//	SCENE->ChangeScene("MiniMap");
+	//if (INPUT->KeyDown('D'))
+	//	SCENE->ChangeScene("Test");
 
 
 

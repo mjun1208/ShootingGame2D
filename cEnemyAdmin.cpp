@@ -25,6 +25,7 @@ void cEnemyAdmin::Update(Vec2 Target, cMap * map)
 	//	b_Once = false;
 	//	m_Enemy.push_back(new cEnemy(map));
 	//}
+
 	for (auto iter : m_Enemy)
 		iter->Update(Target, map);
 

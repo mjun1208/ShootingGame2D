@@ -3,7 +3,8 @@
 
 #include "cMap.h"
 
-cEnemy::cEnemy(cMap * map)
+cEnemy::cEnemy(cMap * map, Vec2 Pos)
+	: m_vPos(Pos)
 {
 	Init(map);
 }
@@ -16,7 +17,7 @@ cEnemy::~cEnemy()
 void cEnemy::Init(cMap * map)
 {
 	m_Image = IMAGE->FindImage("Enemy");
-	m_vPos = Vec2(11, 1);
+	//m_vPos = Vec2(11, 1);
 	m_vDir = Vec2(0, 0);
 	m_vTarget = Vec2(0, 0);
 	NowPath = 0;
@@ -38,8 +39,6 @@ void cEnemy::Init(cMap * map)
 
 void cEnemy::Update(Vec2 Target, cMap * map)
 {
-	//if (INPUT->KeyDown('Z'))
-	//	map->FindPath(map->GetMatrix(m_vPos), map->GetMatrix(Target));
 	Movement(Target, map);
 	CheckColl(map);
 	m_rc = {
@@ -53,7 +52,6 @@ void cEnemy::Update(Vec2 Target, cMap * map)
 void cEnemy::Render()
 {
 	IMAGE->Render(m_Image, m_vPos, 0, true);
-	//IMAGE->Render(IMAGE->FindImage("Enemy_Path"), m_vTarget, 0, true);
 }
 
 void cEnemy::Release()
@@ -98,11 +96,6 @@ void cEnemy::Movement(Vec2 Target, cMap * map)
 				++NowPath;
 			}
 
-			//if (m_vTarget == map->GetMatrix(m_vPos)) {
-			//	++NowPath;
-			//}
-
-			//DEBUG_LOG(m_vTarget.x << " " << m_vTarget.y);
 			Dir = m_vTarget - m_vPos;
 		}
 		D3DXVec2Normalize(&Dir, &Dir);

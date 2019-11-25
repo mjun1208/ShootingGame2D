@@ -15,6 +15,7 @@ cMapEditerScene::~cMapEditerScene()
 
 void cMapEditerScene::Init()
 {
+	EnemyMode = false;
 	IsInit = true;
 	switch (i_NowStage)
 	{
@@ -37,6 +38,7 @@ void cMapEditerScene::Init()
 	m_InterFace = IMAGE->FindImage("MakeMap_Interface");
 
 	State = (TileState)0;
+	EnemyState = TEST;
 
 	for (int i = 0; i < 15; i++) {
 		for (int j = 0; j < 15; j++) {
@@ -89,16 +91,28 @@ void cMapEditerScene::Init()
 
 void cMapEditerScene::Update()
 {
-	if (INPUT->KeyDown('1'))
-		State = WoodBox;
-	if (INPUT->KeyDown('2'))
-		State = Pumpkin;
-	if (INPUT->KeyDown('3'))
-		State = Stage1_0;
-	if (INPUT->KeyDown('4'))
-		State = Stage1_1;
-	if (INPUT->KeyDown('5'))
-		State = None;
+	if (INPUT->KeyDown('M')) {
+		if (EnemyMode)
+			EnemyMode = false;
+		else
+			EnemyMode = true;
+	}
+
+	if (!EnemyMode) {
+		if (INPUT->KeyDown('1'))
+			State = WoodBox;
+		if (INPUT->KeyDown('2'))
+			State = Pumpkin;
+		if (INPUT->KeyDown('3'))
+			State = Stage1_0;
+		if (INPUT->KeyDown('4'))
+			State = Stage1_1;
+		if (INPUT->KeyDown('5'))
+			State = None;
+	}
+	else {
+		EnemyState = TEST;
+	}
 
 	if (INPUT->KeyPress('W') && vCameraPos.y > WINSIZEY / 2 - 40)
 		vCameraPos.y -= 20;
@@ -138,13 +152,21 @@ void cMapEditerScene::Update()
 			SCENE->ChangeScene("Map3");
 		}
 		if (TitleButton->Update()) {
+			CAMERA->SetPosition(Vec3(WINSIZEX / 2, WINSIZEY / 2, 0));
 			SCENE->ChangeScene("Title");
 		}
 	}
 	else {
 		D3DXVec2Lerp(&vInterFacePos, &vInterFacePos, &Vec2(WINSIZEX + 150, WINSIZEY / 2), 0.6f);
-		CheckCurrentTile();
-		SpawnTile();
+
+		if (!EnemyMode) {
+			CheckCurrentTile();
+			SpawnTile();
+		}
+		else {
+			CheckCurrentTile();
+			SpawnEnemy();
+		}
 	}
 	//if (INPUT->KeyDown('S')) {
 	//	for (auto iter : Tiles)
@@ -185,29 +207,45 @@ void cMapEditerScene::Render()
 		}
 	}
 
-	cTexture * m_image;
-
-	switch (State)
-	{
-	case WoodBox:
-		m_image = IMAGE->FindImage("WoodBox");
-		break;
-	case Pumpkin:
-		m_image = IMAGE->FindImage("Pumpkin")->FindImage(0);
-		break;
-	case Stage1_0:
-		m_image = IMAGE->FindImage("Stage1_0");
-		break;
-	case Stage1_1:
-		m_image = IMAGE->FindImage("Stage1_1");
-		break;
-	case None:
-		m_image = IMAGE->FindImage("None");
-		break;
-	default:
-		break;
+	for (auto iter : Enemys) {
+		iter->m_Image = IMAGE->FindImage("Enemy");
+		IMAGE->Render(IMAGE->FindImage("Enemy"), iter->vPos, 0, true);
 	}
 
+	cTexture * m_image;
+
+	if (!EnemyMode) {
+		switch (State)
+		{
+		case WoodBox:
+			m_image = IMAGE->FindImage("WoodBox");
+			break;
+		case Pumpkin:
+			m_image = IMAGE->FindImage("Pumpkin")->FindImage(0);
+			break;
+		case Stage1_0:
+			m_image = IMAGE->FindImage("Stage1_0");
+			break;
+		case Stage1_1:
+			m_image = IMAGE->FindImage("Stage1_1");
+			break;
+		case None:
+			m_image = IMAGE->FindImage("None");
+			break;
+		default:
+			break;
+		}
+	}
+	else {
+		switch (EnemyState)
+		{
+		case TEST:
+			m_image = IMAGE->FindImage("Enemy");
+			break;
+		default:
+			break;
+		}
+	}
 
 	if (IsInterface) {
 		IMAGE->ReBegin(true);
@@ -234,6 +272,16 @@ void cMapEditerScene::Render()
 	    	}
 	    }
 
+		for (auto iter : Enemys) {
+			switch (iter->EnemyState)
+			{
+			case TEST:
+				IMAGE->Render(IMAGE->FindImage("MakeMap_MiniMap_Enemy")->FindImage(0), Vec2(WINSIZEX - 300 + (iter->vMatrix.x * 20 + 10), (iter->vMatrix.y * 20 + 10)), 0, true);
+			default:
+				break;
+			}
+		}
+
 		Stage1Button->Render();
 		Stage2Button->Render();
 		Stage3Button->Render();
@@ -241,8 +289,13 @@ void cMapEditerScene::Render()
 		TitleButton->Render();
 		IMAGE->ReBegin(false);
 	}
-	else
-		IMAGE->CenterRender(m_image->FindImage(0), vCurTilePos, Vec3(m_image->info.Width / 2, m_image->info.Height - 50, 0), 0);
+	else {
+		if (!EnemyMode)
+			IMAGE->CenterRender(m_image->FindImage(0), vCurTilePos, Vec3(m_image->info.Width / 2, m_image->info.Height - 50, 0), 0);
+		else
+			IMAGE->CenterRender(m_image->FindImage(0), vCurTilePos, Vec3(m_image->info.Width / 2, m_image->info.Height / 2, 0), 0);
+	}
+
 
 	if (IsSave) {
 		IMAGE->ReBegin(true);
@@ -264,6 +317,16 @@ void cMapEditerScene::Release()
 	}
 	ToSpawnTiles.clear();
 
+	for (auto iter : Enemys) {
+		SAFE_DELETE(iter);
+	}
+	Enemys.clear();
+
+	for (auto iter : ToSpawnEnemys) {
+		SAFE_DELETE(iter);
+	}
+	ToSpawnEnemys.clear();
+
 	if (IsInit) {
 		SAFE_DELETE(SaveButton);
 		SAFE_DELETE(TitleButton);
@@ -282,7 +345,10 @@ void cMapEditerScene::CheckCurrentTile()
 			vCurTilePos = (*iter)->GetPos(); //Vec2((*iter)->vMatrix.x * 100 + 50, (*iter)->vMatrix.y * 100 + 50);
 			if (INPUT->MouseLPress()) {
 				DEBUG_LOG((*iter)->GetMatrix().x << " " << (*iter)->GetMatrix().y);
-				ToSpawnTiles.push_back(new cTile((*iter)->Getrc(), (*iter)->GetMatrix(), State, (*iter)->GetPos()));
+				if (!EnemyMode)
+					ToSpawnTiles.push_back(new cTile((*iter)->Getrc(), (*iter)->GetMatrix(), State, (*iter)->GetPos()));
+				else
+					ToSpawnEnemys.push_back(new EnemyDumy((*iter)->GetPos(),(*iter)->GetMatrix(), EnemyState));
 				return;
 			}
 		}
@@ -306,6 +372,25 @@ void cMapEditerScene::SpawnTile()
 		Tiles.push_back(new cTile((*iter)->Getrc(), (*iter)->GetMatrix(), State, (*iter)->GetPos()));
 		SAFE_DELETE(*iter);
 		iter = ToSpawnTiles.erase(iter);
+	}
+	return;
+}
+
+void cMapEditerScene::SpawnEnemy()
+{
+	for (auto iter = ToSpawnEnemys.begin(); iter != ToSpawnEnemys.end();) {
+		for (auto _iter = Enemys.begin(); _iter != Enemys.end();) {
+			if ((*iter)->vPos == (*_iter)->vPos) {
+				SAFE_DELETE(*_iter);
+				_iter = Enemys.erase(_iter);
+			}
+			else
+				++_iter;
+		}
+
+		Enemys.push_back(new EnemyDumy((*iter)->vPos, (*iter)->vMatrix ,  (*iter)->EnemyState));
+		SAFE_DELETE(*iter);
+		iter = ToSpawnEnemys.erase(iter);
 	}
 	return;
 }

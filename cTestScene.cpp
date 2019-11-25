@@ -34,8 +34,8 @@ void cTestScene::Reset()
 
 	m_Enemy = new cEnemyAdmin();
 	m_Enemy->Init();
-	if (m_MapState == NormalRoom)
-		m_Enemy->GetEnemy().push_back(new cEnemy(m_TestMap));
+	//if (m_MapState == NormalRoom)
+	//	m_Enemy->GetEnemy().push_back(new cEnemy(m_TestMap));
 
 	m_Bullet = new cBulletAdmin();
 	m_Bullet->Init(); 

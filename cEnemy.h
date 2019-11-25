@@ -1,5 +1,6 @@
 #pragma once
 class cMap;
+enum EnemyKind { TEST };
 class cEnemy
 {
 private:
@@ -23,7 +24,7 @@ private:
 
 	int i_Hp;
 public:
-	cEnemy(cMap * map);
+	cEnemy(cMap * map , Vec2 Pos);
 	~cEnemy();
 
 	void Init(cMap * map);

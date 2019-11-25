@@ -1,9 +1,20 @@
 #pragma once
 #include "cScene.h"
+#include "cEnemy.h"
 
+struct EnemyDumy {
+	EnemyKind EnemyState;
+	Vec2 vPos;
+	Vec2 vMatrix;
+	cTexture * m_Image;
+
+	EnemyDumy(Vec2 Pos, Vec2 Matrix , EnemyKind State) : vPos(Pos), vMatrix(Matrix), EnemyState(State) {};
+};
 class cMapEditerScene : public cScene
 {
 private:
+	bool EnemyMode;
+
 	int BackGroundArray[15][15];
 
 	int i_NowStage;
@@ -30,13 +41,19 @@ private:
 	float SaveColorAlpha;
 
 	TileState State;
+	EnemyKind EnemyState;
 	Vec2 vCurTilePos;
 
 	vector<cTile*> Tiles;
 	vector<cTile*> ToSpawnTiles;
 
+	vector<EnemyDumy*> Enemys;
+	vector<EnemyDumy*> ToSpawnEnemys;
+
 	void CheckCurrentTile();
 	void SpawnTile();
+	
+	void SpawnEnemy();
 public:
 	cMapEditerScene(int Stage);
 	virtual ~cMapEditerScene();
