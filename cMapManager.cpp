@@ -4,12 +4,10 @@
 cMapManager::cMapManager()
 {
 	ifstream mapIf;
-
 	int i = 0;
-
 	while (true) {
 		char str[128] = "";
-		sprintf(str, "./MapFile/map(%d).txt", i);
+		sprintf(str, "./MapFile/Stage1/map(%d).txt", i);
 		mapIf = ifstream(str);
 
 		if (mapIf.is_open()) {
@@ -21,7 +19,6 @@ cMapManager::cMapManager()
 			break;
 		}
 	}
-
 	Stage1_MapCount = i - 1;
 }
 
@@ -42,6 +39,19 @@ void cMapManager::AddInfo(int _x, UINT _y, UINT _form)
 	}
 	RECT rc = {0,0,0,0};
 	mapCode.push_back(new cTile(rc, Vec2(_x, _y), (TileState)_form, Vec2(0,0)));
+}
+
+void cMapManager::AddEnemy(int _x, int _y, int _form)
+{
+	for (auto iter : enemyCode)
+	{
+		if (iter->vMatrix.x == _x && iter->vMatrix.y == _y)
+		{
+			iter->EnemyState = (EnemyKind)_form;
+			return;
+		}
+	}
+	enemyCode.push_back(new EnemyDumy(Vec2(0, 0), Vec2(_x,_y), (EnemyKind)_form));
 }
 
 void cMapManager::Sort()
@@ -96,6 +106,16 @@ void cMapManager::SaveInfo(int Stage)
 		±ò½ÓÇÏ°Ô ¼öÁ¤ ÇØ¾ß µÊ
 		*/
 	}
+
+	for (auto iter : enemyCode) {
+		tempCode.append(" E_(");
+		tempCode.append(to_string((int)iter->vMatrix.x));
+		tempCode.append(" ,");
+		tempCode.append(to_string((int)iter->vMatrix.y));
+		tempCode.append(") ");
+		tempCode.append(to_string((int)iter->EnemyState));
+		tempCode.append("/\n");
+	}
 	if (mapOf.is_open())
 	{
 		mapOf << tempCode;
@@ -106,7 +126,7 @@ void cMapManager::SaveInfo(int Stage)
 void cMapManager::LoadInfo(int Map)
 {
 	char str[128] = "";
-	sprintf(str, "./MapFile/map(%d).txt", Map);
+	sprintf(str, "./MapFile/Stage1/map(%d).txt", Map);
 	ifstream mapIf(str);
 
 	if (!mapIf.is_open())
@@ -129,38 +149,75 @@ void cMapManager::LoadInfo(int Map)
 		}
 		string x;
 
-		for (int i = 0; i < 3; i++)
+		if (tempStr.at(1) != 'E')
 		{
-			if (tempStr.at(2 + i) == ' ') break;
-			else
+			for (int i = 0; i < 3; i++)
 			{
-				x += tempStr.at(2 + i);
+				if (tempStr.at(2 + i) == ' ') break;
+				else
+				{
+					x += tempStr.at(2 + i);
+				}
 			}
-		}
 
-		string y;
+			string y;
 
-		for (int i = 0; i < 3; i++)
-		{
-			if (tempStr.at(x.size() + 4 + i) == ')') break;
-			else
+			for (int i = 0; i < 3; i++)
 			{
-				y += tempStr.at(4 + i + x.size());
+				if (tempStr.at(x.size() + 4 + i) == ')') break;
+				else
+				{
+					y += tempStr.at(4 + i + x.size());
+				}
 			}
-		}
 
-		string form;
+			string form;
 
-		for (int i = 0; i < 3; i++)
-		{
-			if (tempStr.at(x.size() + y.size() + 6 + i) == '/') break;
-			else
+			for (int i = 0; i < 3; i++)
 			{
-				form += tempStr.at(x.size() + y.size() + 6 + i);
+				if (tempStr.at(x.size() + y.size() + 6 + i) == '/') break;
+				else
+				{
+					form += tempStr.at(x.size() + y.size() + 6 + i);
+				}
 			}
+			AddInfo(stoi(x), stoi(y), stoi(form));
 		}
+		else {
 
-		AddInfo(stoi(x), stoi(y), stoi(form));
+			for (int i = 0; i < 3; i++)
+			{
+				if (tempStr.at(4 + i) == ' ') break;
+				else
+				{
+					x += tempStr.at(4 + i);
+				}
+			}
+
+			string y;
+
+			for (int i = 0; i < 3; i++)
+			{
+				if (tempStr.at(x.size() + 6 + i) == ')') 
+					break;
+				else
+				{
+					y += tempStr.at(6 + i + x.size());
+				}
+			}
+
+			string form;
+
+			for (int i = 0; i < 3; i++)
+			{
+				if (tempStr.at(x.size() + y.size() + 8 + i) == '/') break;
+				else
+				{
+					form += tempStr.at(x.size() + y.size() + 8 + i);
+				}
+			}
+			AddEnemy(stoi(x), stoi(y), stoi(form));
+		}
 	}
 
 	//DEBUG_LOG(tempCode);
@@ -173,9 +230,8 @@ void cMapManager::Release()
 		SAFE_DELETE(iter);
 	}
 	mapCode.clear();
-}
 
-vector<cTile*>& cMapManager::OutInfo()
-{
-	return mapCode;
+	for (auto iter : enemyCode)
+		SAFE_DELETE(iter);
+	enemyCode.clear();
 }

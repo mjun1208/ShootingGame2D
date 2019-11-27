@@ -34,7 +34,7 @@ void cPlayer::Init()
 	m_AttackImage[RIGHT] = IMAGE->FindImage("Player_Attack_Right");
 
 	m_vDir = Vec2(0, 0);
-	m_vPos = Vec2(150, 100);
+	m_vPos = Vec2(1500 / 2, 1500 / 2);
 
 	b_Move = false;
 	b_Attack = false;
@@ -57,6 +57,7 @@ void cPlayer::Init()
 
 void cPlayer::Update(cMap * map)
 {
+	DEBUG_LOG(m_vPos.x << " " << m_vPos.y);
 	Movement();
 	CheckColl(map);
 	
@@ -91,6 +92,8 @@ void cPlayer::Update(cMap * map)
 	else
 		m_AttackFrame->NowFrame = 0;
 	//DEBUG_LOG(map->GetMatrix(m_vPos).x << " " << map->GetMatrix(m_vPos).y);
+
+	CAMERA->Follow(Vec3(m_vPos.x, m_vPos.y , 0));
 }
 
 void cPlayer::Render()
@@ -153,6 +156,8 @@ void cPlayer::CheckColl(cMap * map)
 				else {
 					if (InterRect.left == iter->Getrc().left) {
 						ChangerW = -InterW;
+					
+					
 					}
 					else if (InterRect.right == iter->Getrc().right) {
 						ChangerW = InterW;

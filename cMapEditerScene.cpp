@@ -60,9 +60,9 @@ void cMapEditerScene::Init()
 				break;
 			case 2:
 				int Stage2BackNowTile;
-				if ((i + j + 1) % 2 == 1) 
+				if ((i + j + 1) % 2 == 1)
 					Stage2BackNowTile = 0;
-				else 
+				else
 					Stage2BackNowTile = 1;
 				BackGroundArray[i][j] = Stage2BackNowTile;
 				break;
@@ -72,6 +72,8 @@ void cMapEditerScene::Init()
 			default:
 				break;
 			}
+
+			Enemys.push_back(new EnemyDumy(vCurTilePos, Vec2(i, j) , e_NONE));
 		}
 	}
 
@@ -111,7 +113,10 @@ void cMapEditerScene::Update()
 			State = None;
 	}
 	else {
-		EnemyState = TEST;
+		if (INPUT->KeyDown('1'))
+			EnemyState = TEST;
+		if (INPUT->KeyDown('2'))
+			EnemyState = e_NONE;
 	}
 
 	if (INPUT->KeyPress('W') && vCameraPos.y > WINSIZEY / 2 - 40)
@@ -137,6 +142,8 @@ void cMapEditerScene::Update()
 		if (SaveButton->Update()) {
 			for (auto iter : Tiles)
 				MapSet->AddInfo(iter->GetMatrix().x, iter->GetMatrix().y, iter->GetState());
+			for (auto iter : Enemys)
+				MapSet->AddEnemy(iter->vMatrix.x, iter->vMatrix.y, iter->EnemyState);
 			MapSet->SaveInfo(i_NowStage);
 
 			IsSave = true;
@@ -205,11 +212,24 @@ void cMapEditerScene::Render()
 			if (iter->GetMatrix().y == i)
 				iter->Render();
 		}
-	}
 
-	for (auto iter : Enemys) {
-		iter->m_Image = IMAGE->FindImage("Enemy");
-		IMAGE->Render(IMAGE->FindImage("Enemy"), iter->vPos, 0, true);
+		for (auto iter : Enemys) {
+			iter->m_Image = IMAGE->FindImage("Enemy");
+			
+			if (iter->vMatrix.y == i) {
+				switch (iter->EnemyState)
+				{
+				case e_NONE:
+					IMAGE->Render(IMAGE->FindImage("None"), iter->vPos, 0, true);
+					break;
+				case TEST:
+					IMAGE->Render(IMAGE->FindImage("Enemy"), iter->vPos, 0, true);
+					break;
+				default:
+					break;
+				}
+			}
+		}
 	}
 
 	cTexture * m_image;
@@ -239,6 +259,9 @@ void cMapEditerScene::Render()
 	else {
 		switch (EnemyState)
 		{
+		case e_NONE:
+			m_image = IMAGE->FindImage("None");
+			break;
 		case TEST:
 			m_image = IMAGE->FindImage("Enemy");
 			break;
@@ -275,6 +298,8 @@ void cMapEditerScene::Render()
 		for (auto iter : Enemys) {
 			switch (iter->EnemyState)
 			{
+			case e_NONE:
+				break;	
 			case TEST:
 				IMAGE->Render(IMAGE->FindImage("MakeMap_MiniMap_Enemy")->FindImage(0), Vec2(WINSIZEX - 300 + (iter->vMatrix.x * 20 + 10), (iter->vMatrix.y * 20 + 10)), 0, true);
 			default:

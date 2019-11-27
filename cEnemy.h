@@ -1,6 +1,5 @@
 #pragma once
 class cMap;
-enum EnemyKind { TEST };
 class cEnemy
 {
 private:

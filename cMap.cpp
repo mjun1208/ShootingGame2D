@@ -15,11 +15,31 @@ cMap::~cMap()
 
 void cMap::Init()
 {
+
+	switch (NowStage)
+	{
+	case 1:
+		m_BackGround = IMAGE->FindImage("Stage1_BackGroundTile");
+		break;
+	case 2:
+		m_BackGround = IMAGE->FindImage("Stage2_BackGroundTile");
+		break;
+	case 3:
+		m_BackGround = IMAGE->FindImage("Stage3_BackGroundTile");
+		break;
+	default:
+		break;
+	}
+
     //MapSet->Release();
 	MapSet->LoadInfo(Map);
 	for (auto iter : MapSet->OutInfo()) {
 		Tiles.push_back(new cTile(iter->Getrc(), iter->GetMatrix(), iter->GetState(), iter->GetPos()));
 	}
+	for (auto iter : MapSet->OutEnemyInfo()) {
+		Enemys.push_back(new EnemyDumy(iter->vPos, iter->vMatrix, iter->EnemyState));
+	}
+
 	MapSet->Release();
 	//Tiles = MapSet->OutInfo();
 	for (auto iter : Tiles)
@@ -59,6 +79,8 @@ void cMap::Update()
 
 void cMap::BackGroundRender()
 {
+
+
 	if (NowStage == 2) {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
@@ -100,6 +122,10 @@ void cMap::Release()
 	for (auto iter : Tiles)
 		SAFE_DELETE(iter);
 	Tiles.clear();
+
+	for (auto iter : Enemys)
+		SAFE_DELETE(iter);
+	Enemys.clear();
 	MapSet->Release();
 }
 

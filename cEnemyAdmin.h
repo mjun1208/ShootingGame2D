@@ -6,6 +6,8 @@ class cEnemyAdmin
 private:
 	bool b_Once = true;
 	vector<cEnemy*> m_Enemy;
+
+	void CheckColl();
 public:
 	cEnemyAdmin();
 	~cEnemyAdmin();

@@ -23,6 +23,7 @@ cTestScene::~cTestScene()
 
 void cTestScene::Reset()
 {
+	DEBUG_LOG("¸Ê °¹¼ö : " + to_string(Stage1_MapCount + 1));
 	if (m_MapState == Normal) {
 		Now_Stage1_Map = rand() % (Stage1_MapCount + 1);
 		DEBUG_LOG(Now_Stage1_Map);
@@ -36,6 +37,18 @@ void cTestScene::Reset()
 	m_Enemy->Init();
 	//if (m_MapState == NormalRoom)
 	//	m_Enemy->GetEnemy().push_back(new cEnemy(m_TestMap));
+	for (auto iter : m_TestMap->GetEnemyDummy()) {
+		switch (iter->EnemyState)
+		{
+		case e_NONE:
+			break;
+		case TEST:
+			m_Enemy->GetEnemy().push_back(new cEnemy(m_TestMap, iter->vMatrix));
+			break;
+		default:
+			break;
+		}
+	}
 
 	m_Bullet = new cBulletAdmin();
 	m_Bullet->Init(); 
@@ -70,18 +83,23 @@ void cTestScene::Init()
 	{
 	case LEFT:
 		PlayerPos = m_Door[LEFT]->GetPos() + Vec2(-50, 0);
+		CAMERA->SetPosition(Vec3(1500 - WINSIZEX / 2, 1500 / 2, 0));
 		break;
 	case RIGHT:
 		PlayerPos = m_Door[RIGHT]->GetPos() + Vec2(50, 0);
+		CAMERA->SetPosition(Vec3(WINSIZEX / 2, 1500 / 2, 0));
 		break;
 	case TOP:
 		PlayerPos = m_Door[TOP]->GetPos() + Vec2(0, 50);
+		CAMERA->SetPosition(Vec3(1500 / 2, WINSIZEY / 2, 0));
 		break;
 	case BOTTOM:
 		PlayerPos = m_Door[BOTTOM]->GetPos() + Vec2(0,-50);
+		CAMERA->SetPosition(Vec3(1500 / 2, 1500 - WINSIZEY / 2, 0));
 		break;
 	case FOLLOW:
-		PlayerPos = Vec2(150, 100);
+		PlayerPos = Vec2(1500 / 2, 1500 / 2);
+		CAMERA->SetPosition(Vec3(1500 / 2, 1500 / 2, 0));
 		break;
 	default:
 		break;

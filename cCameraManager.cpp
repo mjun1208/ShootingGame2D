@@ -37,8 +37,10 @@ void cCameraManager::Update()
 		if (fDistance < 1200.f) {
 			m_vOldPos = m_vOldPos + (m_vFollowPos - m_vOldPos) * 0.4f;
 
-			m_vCameraPos.x = m_vOldPos.x;
-			m_vCameraPos.y = m_vOldPos.y;
+			if (m_vOldPos.x > 0 + WINSIZEX / 2 && m_vOldPos.x < 1500 - WINSIZEX / 2)
+				m_vCameraPos.x = m_vOldPos.x;
+			if (m_vOldPos.y > 0 + WINSIZEY / 2 && m_vOldPos.y < 1500 - WINSIZEY / 2)
+				m_vCameraPos.y = m_vOldPos.y;
 
 		}
 		else {

@@ -23,7 +23,7 @@ void cDoor::Init()
 	{
 	case LEFT:
 		Angle = -90;
-		m_vPos = Vec2(1180 , WINSIZEY / 2);
+		m_vPos = Vec2(1400 , 1500 / 2);
 		m_rc = RECT{
 			(LONG)(m_vPos.x - m_OpenImage->info.Height / 2),
 			(LONG)(m_vPos.y - m_OpenImage->info.Width / 2),
@@ -33,7 +33,7 @@ void cDoor::Init()
 		break;
 	case RIGHT:
 		Angle = 90;
-		m_vPos = Vec2(100, WINSIZEY / 2);
+		m_vPos = Vec2(100, 1500 / 2);
 		m_rc = RECT{
 			(LONG)(m_vPos.x - m_OpenImage->info.Height / 2),
 			(LONG)(m_vPos.y - m_OpenImage->info.Width / 2),
@@ -43,7 +43,7 @@ void cDoor::Init()
 		break;
 	case TOP:
 		Angle = 0;
-		m_vPos = Vec2(WINSIZEX / 2, 100);
+		m_vPos = Vec2(1500 / 2, 100);
 		m_rc = RECT{
 	        (LONG)(m_vPos.x - m_OpenImage->info.Width / 2),
 	        (LONG)(m_vPos.y - m_OpenImage->info.Height / 2),
@@ -53,7 +53,7 @@ void cDoor::Init()
 		break;
 	case BOTTOM:
 		Angle = 180;
-		m_vPos = Vec2(WINSIZEX / 2, 620);
+		m_vPos = Vec2(1500 / 2, 1400);
 		m_rc = RECT{
 	        (LONG)(m_vPos.x - m_OpenImage->info.Width / 2),
 	        (LONG)(m_vPos.y - m_OpenImage->info.Height / 2),

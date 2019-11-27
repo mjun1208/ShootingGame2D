@@ -51,9 +51,6 @@
     <Filter Include="Object\Map">
       <UniqueIdentifier>{eaa76d4f-2714-4ab1-a428-a376868d613f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Object\Player">
-      <UniqueIdentifier>{a8ec3a84-605b-4744-b43a-f41c94606fc7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\Title">
       <UniqueIdentifier>{5297a53a-bd85-4903-9909-b02166a637eb}</UniqueIdentifier>
     </Filter>
@@ -80,6 +77,9 @@
     </Filter>
     <Filter Include="Object\Collision">
       <UniqueIdentifier>{bb9b950f-dda2-4369-a5a9-f934f6598d84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\Player">
+      <UniqueIdentifier>{a8ec3a84-605b-4744-b43a-f41c94606fc7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

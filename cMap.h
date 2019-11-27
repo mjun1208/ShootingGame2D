@@ -21,6 +21,7 @@ private:
 	int BackGroundArray[15][15];
 private:
 	vector<cTile*> Tiles;
+	vector<EnemyDumy*> Enemys;
 public:
 	cMap(int NowStage, int Map);
 	~cMap();
@@ -38,5 +39,7 @@ public:
 
 	vector<Vec2> FindPath(Vec2 MyMatrix, Vec2 TargetMatrix);
 	vector<Vec2> SavePath(vector<Node*>& ClosePath , Vec2 MyMatrix, Vec2 TargetMatrix);
+
+	vector<EnemyDumy*>& GetEnemyDummy() { return Enemys; }
 };
 
