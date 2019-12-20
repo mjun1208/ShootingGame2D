@@ -9,6 +9,7 @@
 
 cMainGame mg;
 
+
 int Now_Stage1_Map = 0;
 int Stage1_MapCount;
 int Stage2_MapCount;
